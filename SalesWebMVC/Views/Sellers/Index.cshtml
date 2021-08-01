@@ -1,10 +1,18 @@
-﻿@model IEnumerable<SalesWebMVC.Models.Seller> 
+﻿@model IEnumerable<SalesWebMVC.Models.Seller>
+
+
 @{
     ViewData["Title"] = "Sellers";
 
 }
 
 <h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-default">Create New</a>
+
+    
+    </p>
 
 <table class="table table table-striped  table-hover">
     <thead>
@@ -27,29 +35,29 @@
     </thead>
 
     <tbody>
-        @foreach(var item in Model)
-            {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BaseSalary)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseSalary)
+                </td>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-            }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 
 </table>

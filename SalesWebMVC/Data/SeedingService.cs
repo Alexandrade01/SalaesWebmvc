@@ -18,7 +18,8 @@ namespace SalesWebMVC.Data
         { // verifica se existe algum registro em department ou seller ou salesrecord
             if (_context.Department.Any() || _context.Seller.Any() || _context.SalesRecord.Any())
             {
-                return;//Db has been seed
+                return;
+                //Db has been seed
             }
             Department d1 = new Department(1, "Computers");
             Department d2 = new Department(2, "Eletronics");
