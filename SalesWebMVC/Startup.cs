@@ -49,6 +49,8 @@ builder.MigrationsAssembly("SalesWebMVC")));
             //dependency injection system
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
+            services.AddScoped<DepartmentService>();
+
 
         }
 
