@@ -39,7 +39,13 @@ namespace SalesWebMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
-        {
+        { //check if validation is valid
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewmodel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(seller);
+            }
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -48,7 +54,7 @@ namespace SalesWebMVC.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new {message = "Id not provided !" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provided !" });
             }
             var obj = _sellerService.FindById(id.Value);
             if (obj == null) { RedirectToAction(nameof(Error), new { message = "Id not found !" }); }
@@ -69,7 +75,7 @@ namespace SalesWebMVC.Controllers
                 return RedirectToAction(nameof(Error), new { message = "Id not provided !" });
             }
             var obj = _sellerService.FindById(id.Value);
-            if (obj == null) { return  RedirectToAction(nameof(Error), new { message = "Id not found !" }); }
+            if (obj == null) { return RedirectToAction(nameof(Error), new { message = "Id not found !" }); }
             return View(obj);
         }
 
@@ -86,15 +92,22 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            //check if validation is valid
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewmodel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(seller);
+            }
             if (id != seller.Id) { RedirectToAction(nameof(Error), new { message = "Id mismatch :C !" }); }
             try
             {
                 _sellerService.Update(seller);
                 return RedirectToAction(nameof(Index));
             }
-            catch(ApplicationException e)
+            catch (ApplicationException e)
             {
-                return RedirectToAction(nameof(Error), new { message = e.Message }); 
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
         }
         public IActionResult Error(string message)
@@ -102,7 +115,7 @@ namespace SalesWebMVC.Controllers
             var ViewModel = new ErrorViewModel
             {
                 Message = message,
-                
+
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
 
             };
@@ -110,7 +123,7 @@ namespace SalesWebMVC.Controllers
         }
     }
 }
-           
+
 
 
 
