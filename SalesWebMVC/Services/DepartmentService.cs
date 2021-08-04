@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SalesWebMVC.Models;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMVC.Services
 {
@@ -13,11 +15,15 @@ namespace SalesWebMVC.Services
         {
             _context = context;
         }
-        public List<Department> FindAll()
-        {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+         
+        //Async -> Assincrono
+        public async Task<List<Department>> FindAllAsync()
+        { //Retorna lista assincrona agilizando a execução do código
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
 
         }
+
+
     }
 
 }
